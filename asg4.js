@@ -104,7 +104,6 @@ function addActionsForHtmlUI(){
     document.getElementById('lightOn').onclick = function(){g_lightOn = true;};
     document.getElementById('lightOff').onclick = function(){g_lightOn = false;};
 
-    document.getElementById('LightX').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightPos[0] = this.value/100; renderAllShapes();}});
     document.getElementById('LightY').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightPos[1] = this.value/100; renderAllShapes();}});
     document.getElementById('LightZ').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightPos[2] = this.value/100; renderAllShapes();}});
 }
@@ -470,7 +469,7 @@ function cross(other1, other2) {
 class Camera{
     constructor(){
         this.eye = new Vector3([0,0,0]);
-        this.at = new Vector3([0,0,-1]);
+        this.at = new Vector3([0,0,1]);
         this.up = new Vector3([0,1,0]);
         this.fov = 60;
         this.speed = .1;
