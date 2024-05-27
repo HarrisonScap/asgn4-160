@@ -103,7 +103,8 @@ function addActionsForHtmlUI(){
 
     document.getElementById('lightOn').onclick = function(){g_lightOn = true;};
     document.getElementById('lightOff').onclick = function(){g_lightOn = false;};
-
+    //WTF GITHUB
+    
     document.getElementById('LightY').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightPos[1] = this.value/100; renderAllShapes();}});
     document.getElementById('LightZ').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightPos[2] = this.value/100; renderAllShapes();}});
 }
