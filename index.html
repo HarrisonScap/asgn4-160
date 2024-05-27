@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Assignment 4</title>
+  </head>
+
+  <body onload="main()">
+    <canvas id="asg4" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+
+    
+    <p id="numdot">XXX</p>
+    <!--<p id="player">XXX</p>-->
+    <style>
+        .scale{
+            width: auto;
+            height: 400px;
+        }
+    </style>
+
+    Grader Notes: Instead of doing a camera slider like in Assignment 2, I just reused the camera from the previous Assignment (without mouse movement,
+    as to not make the sliders awkward). You may need to pan to the left or right to see the scene.
+
+    The Sphere is the only object in the scene that uses specular.
+    <br>
+    <br>
+    Controls (Same as Assignment 3):
+    <br>
+    WASD - Walk
+    <br>
+    QE - Pan Left & Right
+
+    <!--
+    <p>
+      Camera Angle <input type="range" min="0" max="360" value="180" class="slider" id="angleSlide">
+    </p>
+    -->
+    
+    <p>
+      Normal Toggle:
+      <button type="button" id="normalOn">Normal On</button>
+      <button type="button" id="normalOff">Normal Off</button>
+    </p>
+    <p>
+      Light Toggle:
+      <button type="button" id="lightOn">Light On</button>
+      <button type="button" id="lightOff">Light Off</button>
+    </p>
+    <p>
+      Light X <input type="range" min="-250" max="250" value="0" class="slider" id="LightX">
+      Light Y <input type="range" min="-250" max="250" value="0" class="slider" id="LightY">
+      Light Z <input type="range" min="-250" max="250" value="0" class="slider" id="LightZ">
+    </p>
+
+    <br><br>
+
+    <script src="lib/cuon-matrix-cse160.js"></script>
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="asg4.js"></script>
+
+  </body>
+</html>
