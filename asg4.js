@@ -32,6 +32,7 @@ var FSHADER_SOURCE = `
   uniform int u_whichTexture;
   uniform bool u_lightOn;
   uniform vec3 u_lightPos;
+  uniform vec3 u_lightColor;
   uniform vec3 u_cameraPos;
   varying vec4 v_VertPos;
   void main() {
@@ -66,9 +67,9 @@ var FSHADER_SOURCE = `
     vec3 ambient = vec3(gl_FragColor) * 0.2;
     if(u_lightOn){
         if(u_whichTexture == 1){
-            gl_FragColor = vec4(specular+diffuse+ambient,1.0);
+            gl_FragColor = vec4(u_lightColor+specular+diffuse+ambient,1.0);
         }else{
-            gl_FragColor = vec4(diffuse+ambient,1.0);
+            gl_FragColor = vec4(u_lightColor+diffuse+ambient,1.0);
         }
     }
   }`
@@ -91,11 +92,13 @@ let u_Sampler2;
 let u_whichTexture;
 let u_lightPos;
 let u_lightOn;
+let u_lightColor;
 let u_cameraPos;
 
 let g_normalOn = false;
 let g_lightOn = true;
 let g_lightPos = [0,1,-2];
+let g_lightColor = [0,0,0];
 
 function addActionsForHtmlUI(){
     document.getElementById('normalOn').onclick = function(){g_normalOn = true;};
@@ -103,10 +106,14 @@ function addActionsForHtmlUI(){
 
     document.getElementById('lightOn').onclick = function(){g_lightOn = true;};
     document.getElementById('lightOff').onclick = function(){g_lightOn = false;};
-    //WTF GITHUB
-    
+
     document.getElementById('LightY').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightPos[1] = this.value/100; renderAllShapes();}});
     document.getElementById('LightZ').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightPos[2] = this.value/100; renderAllShapes();}});
+
+    document.getElementById('LightR').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightColor[0] = this.value; renderAllShapes();}});
+    document.getElementById('LightG').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightColor[1] = this.value; renderAllShapes();}});
+    document.getElementById('LightB').addEventListener('mousemove',function(ev){if(ev.buttons == 1){g_lightColor[2] = this.value; renderAllShapes();}});
+
 }
 
 
@@ -754,6 +761,12 @@ function connectVariablesToGLSL(){
         return;
       }
 
+      u_lightColor = gl.getUniformLocation(gl.program,'u_lightColor');
+      if (!u_lightColor) {
+        console.log("Failed to get the storage location of u_lightColor");
+        return;
+      }
+
       // Textures
 
       u_Sampler0 = gl.getUniformLocation(gl.program,'u_Sampler0');
@@ -930,6 +943,7 @@ function renderAllShapes(){
     gl.clear(gl.COLOR_BUFFER_BIT);
     
     gl.uniform3f(u_lightPos,g_lightPos[0],g_lightPos[1],g_lightPos[2]);
+    gl.uniform3f(u_lightColor,g_lightColor[0]/100,g_lightColor[1]/100,g_lightColor[2]/100);
     gl.uniform3f(u_cameraPos,g_camera.eye.elements[0],g_camera.eye.elements[1],g_camera.eye.elements[2]);
 
     gl.uniform1i(u_lightOn,g_lightOn);
