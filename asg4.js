@@ -67,9 +67,9 @@ var FSHADER_SOURCE = `
     vec3 ambient = vec3(gl_FragColor) * 0.2;
     if(u_lightOn){
         if(u_whichTexture == 1){
-            gl_FragColor = vec4(u_lightColor+specular+diffuse+ambient,1.0);
+            gl_FragColor = vec4(specular+diffuse+ambient,1.0);
         }else{
-            gl_FragColor = vec4(u_lightColor+diffuse+ambient,1.0);
+            gl_FragColor = vec4(diffuse+ambient,1.0);
         }
     }
   }`
